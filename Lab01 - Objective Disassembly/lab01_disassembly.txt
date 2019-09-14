@@ -1,0 +1,214 @@
+
+lab01: 	file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000000550 <_init>:                                   		; For initialization at beginning of program execution
+ 550:    48 83 ec 08     		 sub	$0x8,%rsp
+ 554:    48 8b 05 8d 0a 20 00     mov	0x200a8d(%rip),%rax    	# 200fe8 <__gmon_start__>
+ 55b:    48 85 c0        		 test   %rax,%rax
+ 55e:    74 02           		 je 	562 <_init+0x12>
+ 560:    ff d0           		 callq  *%rax
+ 562:    48 83 c4 08     		 add	$0x8,%rsp
+ 566:    c3              		 retq   
+
+Disassembly of section .plt:
+
+0000000000000570 <.plt>:                                    		; Holds procedure linkage table
+ 570:    ff 35 42 0a 20 00   	 pushq  0x200a42(%rip)    	# 200fb8 <_GLOBAL_OFFSET_TABLE_+0x8>
+ 576:    ff 25 44 0a 20 00   	 jmpq   *0x200a44(%rip)    	# 200fc0 <_GLOBAL_OFFSET_TABLE_+0x10>
+ 57c:    0f 1f 40 00     		 nopl   0x0(%rax)
+
+0000000000000580 <printf@plt>:                              		; Standard C Library printf() function from stdio.h
+ 580:    ff 25 42 0a 20 00   	 jmpq   *0x200a42(%rip)    	# 200fc8 <printf@GLIBC_2.2.5>
+ 586:    68 00 00 00 00  		 pushq  $0x0
+ 58b:    e9 e0 ff ff ff  		 jmpq   570 <.plt>
+
+0000000000000590 <sqrt@plt>:                                		; Standard C Library sqrt() function from math.h
+ 590:    ff 25 3a 0a 20 00   	 jmpq   *0x200a3a(%rip)    	# 200fd0 <sqrt@GLIBC_2.2.5>
+ 596:    68 01 00 00 00  		 pushq  $0x1
+ 59b:    e9 d0 ff ff ff  		 jmpq   570 <.plt>
+
+Disassembly of section .plt.got:
+
+00000000000005a0 <__cxa_finalize@plt>:                      		; handles destructors for static objects when a shared library is unloaded
+ 5a0:    ff 25 52 0a 20 00   	 jmpq   *0x200a52(%rip)    	# 200ff8 <__cxa_finalize@GLIBC_2.2.5>
+ 5a6:    66 90           		 xchg   %ax,%ax
+
+Disassembly of section .text:
+
+00000000000005b0 <_start>:                                  		; Program starts executing
+ 5b0:    31 ed           		 xor	%ebp,%ebp
+ 5b2:    49 89 d1        		 mov	%rdx,%r9
+ 5b5:    5e              		 pop	%rsi
+ 5b6:    48 89 e2        		 mov	%rsp,%rdx
+ 5b9:    48 83 e4 f0     		 and	$0xfffffffffffffff0,%rsp
+ 5bd:    50              		 push   %rax
+ 5be:    54              		 push   %rsp
+ 5bf:    4c 8d 05 da 01 00 00     lea	0x1da(%rip),%r8    	# 7a0 <__libc_csu_fini>
+ 5c6:    48 8d 0d 63 01 00 00     lea	0x163(%rip),%rcx    	# 730 <__libc_csu_init>
+ 5cd:    48 8d 3d 38 01 00 00     lea	0x138(%rip),%rdi    	# 70c <main>
+ 5d4:    ff 15 06 0a 20 00   	 callq  *0x200a06(%rip)    	# 200fe0 <__libc_start_main@GLIBC_2.2.5>
+ 5da:    f4              		 hlt    
+ 5db:    0f 1f 44 00 00  		 nopl   0x0(%rax,%rax,1)
+
+00000000000005e0 <deregister_tm_clones>:                    		; destructs table used by library (libitm) that supports these functions
+ 5e0:    48 8d 3d 29 0a 20 00     lea	0x200a29(%rip),%rdi    	# 201010 <__TMC_END__>
+ 5e7:    55              		 push   %rbp
+ 5e8:    48 8d 05 21 0a 20 00     lea	0x200a21(%rip),%rax    	# 201010 <__TMC_END__>
+ 5ef:    48 39 f8        		 cmp	%rdi,%rax
+ 5f2:    48 89 e5        		 mov	%rsp,%rbp
+ 5f5:    74 19           		 je 	610 <deregister_tm_clones+0x30>
+ 5f7:    48 8b 05 da 09 20 00     mov	0x2009da(%rip),%rax    	# 200fd8 <_ITM_deregisterTMCloneTable>
+ 5fe:    48 85 c0        		 test   %rax,%rax
+ 601:    74 0d           		 je 	610 <deregister_tm_clones+0x30>
+ 603:    5d              		 pop	%rbp
+ 604:    ff e0           		 jmpq   *%rax
+ 606:    66 2e 0f 1f 84 00 00     nopw   %cs:0x0(%rax,%rax,1)
+ 60d:    00 00 00
+ 610:    5d              		 pop	%rbp
+ 611:    c3              		 retq   
+ 612:    0f 1f 40 00     		 nopl   0x0(%rax)
+ 616:    66 2e 0f 1f 84 00 00     nopw   %cs:0x0(%rax,%rax,1)
+ 61d:    00 00 00
+
+0000000000000620 <register_tm_clones>:                      		; sets up table used by the library (libitm) that supports these functions
+ 620:    48 8d 3d e9 09 20 00     lea	0x2009e9(%rip),%rdi    	# 201010 <__TMC_END__>
+ 627:    48 8d 35 e2 09 20 00     lea	0x2009e2(%rip),%rsi    	# 201010 <__TMC_END__>
+ 62e:    55              		 push   %rbp
+ 62f:    48 29 fe        		 sub	%rdi,%rsi
+ 632:    48 89 e5        		 mov	%rsp,%rbp
+ 635:    48 c1 fe 03     		 sar	$0x3,%rsi
+ 639:    48 89 f0        		 mov	%rsi,%rax
+ 63c:    48 c1 e8 3f     		 shr	$0x3f,%rax
+ 640:    48 01 c6        		 add	%rax,%rsi
+ 643:    48 d1 fe        		 sar	%rsi
+ 646:    74 18           		 je 	660 <register_tm_clones+0x40>
+ 648:    48 8b 05 a1 09 20 00     mov	0x2009a1(%rip),%rax    	# 200ff0 <_ITM_registerTMCloneTable>
+ 64f:    48 85 c0        		 test   %rax,%rax
+ 652:    74 0c           		 je 	660 <register_tm_clones+0x40>
+ 654:    5d              		 pop	%rbp
+ 655:    ff e0           		 jmpq   *%rax
+ 657:    66 0f 1f 84 00 00 00     nopw   0x0(%rax,%rax,1)
+ 65e:    00 00
+ 660:    5d              		 pop	%rbp
+ 661:    c3              		 retq   
+ 662:    0f 1f 40 00     		 nopl   0x0(%rax)
+ 666:    66 2e 0f 1f 84 00 00     nopw   %cs:0x0(%rax,%rax,1)
+ 66d:    00 00 00
+
+0000000000000670 <__do_global_dtors_aux>:                   		; runs all global destructors on exit from the program
+ 670:    80 3d 99 09 20 00 00     cmpb   $0x0,0x200999(%rip)    	# 201010 <__TMC_END__>
+ 677:    75 2f           		 jne	6a8 <__do_global_dtors_aux+0x38>
+ 679:    48 83 3d 77 09 20 00     cmpq   $0x0,0x200977(%rip)    	# 200ff8 <__cxa_finalize@GLIBC_2.2.5>
+ 680:    00
+ 681:    55              		 push   %rbp
+ 682:    48 89 e5        		 mov	%rsp,%rbp
+ 685:    74 0c           		 je 	693 <__do_global_dtors_aux+0x23>
+ 687:    48 8b 3d 7a 09 20 00     mov	0x20097a(%rip),%rdi    	# 201008 <__dso_handle>
+ 68e:    e8 0d ff ff ff  		 callq  5a0 <__cxa_finalize@plt>
+ 693:    e8 48 ff ff ff  		 callq  5e0 <deregister_tm_clones>
+ 698:    c6 05 71 09 20 00 01     movb   $0x1,0x200971(%rip)    	# 201010 <__TMC_END__>
+ 69f:    5d              		 pop	%rbp
+ 6a0:    c3              		 retq   
+ 6a1:    0f 1f 80 00 00 00 00     nopl   0x0(%rax)
+ 6a8:    f3 c3           		 repz retq
+ 6aa:    66 0f 1f 44 00 00   	 nopw   0x0(%rax,%rax,1)
+
+00000000000006b0 <frame_dummy>:                             		; sets up arguments to __register_frame_info
+ 6b0:    55              		 push   %rbp
+ 6b1:    48 89 e5        		 mov	%rsp,%rbp
+ 6b4:    5d              		 pop	%rbp
+ 6b5:    e9 66 ff ff ff  		 jmpq   620 <register_tm_clones>
+
+00000000000006ba <get_sqrts>:
+ 6ba:    55              		 push   %rbp                 	; push old base pointer (rbp) to stack
+ 6bb:    48 89 e5        		 mov	%rsp,%rbp            	; copy value of stack pointer (rsp) to base pointer (rbp)
+ 6be:    48 83 ec 20     		 sub	$0x20,%rsp           	; subtract stack pointer from 32
+ 6c2:    89 7d ec        		 mov	%edi,-0x14(%rbp)     	; store edi in rbp - 20 (edi = parameter) (-20 considering stack grows downwards)
+ 6c5:    eb 3c           		 jmp	6f4 <get_sqrts+0x3a> 	; jump to .L3 (while loop) statements (see lab01.s)
+ 6c7:    f2 0f 2a 45 ec  		 cvtsi2sdl -0x14(%rbp),%xmm0 	; Convert doubleword int rbp - 20 to scalar double-precision float xmm0
+ 6cc:    e8 bf fe ff ff  		 callq  590 <sqrt@plt>       	; Call math.h sqrt() function, computing with double-precision float
+ 6d1:    f2 0f 2c c0     		 cvttsd2si %xmm0,%eax        	; Convert scalar double-precision float xmm0 to signed int eax
+ 6d5:    89 45 fc        		 mov	%eax,-0x4(%rbp)      	; store eax in rbp - 4 (int root)
+ 6d8:    8b 55 fc        		 mov	-0x4(%rbp),%edx      	; store rbp - 4 (eax) in edx
+ 6db:    8b 45 ec        		 mov	-0x14(%rbp),%eax     	; store rbp - 20 (edi aka num) in eax
+ 6de:    89 c6           		 mov	%eax,%esi            	; store eax in esi
+ 6e0:    48 8d 3d cd 00 00 00     lea	0xcd(%rip),%rdi    	# 7b4 <_IO_stdin_used+0x4>	; load address of rdi into rip + .LC0
+ 6e7:    b8 00 00 00 00  		 mov	$0x0,%eax            	; store 0 at eax
+ 6ec:    e8 8f fe ff ff  		 callq  580 <printf@plt>     	; call stdio.h printf() function
+ 6f1:    8b 45 fc        		 mov	-0x4(%rbp),%eax      	; store rbp - 4 at eax (root)
+ 6f4:    8d 50 ff        		 lea	-0x1(%rax),%edx      	; load address of edx into rax - 1
+ 6f7:    8b 45 fc        		 mov	-0x4(%rbp),%eax      	; store rbp - 4 at eax
+ 6fa:    83 e8 01        		 sub	$0x1,%eax            	; subtract eax from 1 (root - 1)
+ 6fd:    0f af c2        		 imul   %edx,%eax            	; int multiply edx and eax (root - 1) * (root - 1), store to edx
+ 700:    89 45 ec        		 mov	%eax,-0x14(%rbp)     	; store edx in rbp - 20 (updated num)
+ 703:    83 7d ec 01     		 cmpl   $0x1,-0x14(%rbp)     	; compare 1 to rbp - 20 (num > 1 aka loop conditional)
+ 707:    7f be           		 jg 	6c7 <get_sqrts+0xd>  	; repeat loop when rbp - 20 > 1
+ 709:    90              		 nop                         	; no operation, just do nothing
+ 70a:    c9              		 leaveq                      	; leave quad - release stack frame
+ 70b:    c3              		 retq                        	; return program control to calling procedure
+
+000000000000070c <main>:
+ 70c:    55              		 push   %rbp                 	; push old base pointer (rbp) to stack
+ 70d:    48 89 e5        		 mov	%rsp,%rbp            	; copy value of stack pointer (rsp) to base pointer (rbp)
+ 710:    48 83 ec 10     		 sub	$0x10,%rsp           	; subtract rsp from 16
+ 714:    c7 45 fc 19 00 00 00     movl   $0x19,-0x4(%rbp)     		; store 25 at rbp - 4 (int number)
+ 71b:    8b 45 fc        		 mov	-0x4(%rbp),%eax      	; store rbp - 4 at eax
+ 71e:    89 c7           		 mov	%eax,%edi            	; store eax at edi
+ 720:    e8 95 ff ff ff  		 callq  6ba <get_sqrts>      	; call get_sqrts() which will use edi
+ 725:    b8 00 00 00 00  		 mov	$0x0,%eax            	; store 0 at eax
+ 72a:    c9              		 leaveq                      	; leave - release stack frame
+ 72b:    c3              		 retq                        	; return program control to calling procedure
+ 72c:    0f 1f 40 00     		 nopl   0x0(%rax)            	; no operation, do nothing
+
+0000000000000730 <__libc_csu_init>:                         		; constructor of this program
+ 730:    41 57           		 push   %r15
+ 732:    41 56           		 push   %r14
+ 734:    49 89 d7        		 mov	%rdx,%r15
+ 737:    41 55           		 push   %r13
+ 739:    41 54           		 push   %r12
+ 73b:    4c 8d 25 5e 06 20 00     lea	0x20065e(%rip),%r12    	# 200da0 <__frame_dummy_init_array_entry>
+ 742:    55              		 push   %rbp
+ 743:    48 8d 2d 5e 06 20 00     lea	0x20065e(%rip),%rbp    	# 200da8 <__init_array_end>
+ 74a:    53              		 push   %rbx
+ 74b:    41 89 fd        		 mov	%edi,%r13d
+ 74e:    49 89 f6        		 mov	%rsi,%r14
+ 751:    4c 29 e5        		 sub	%r12,%rbp
+ 754:    48 83 ec 08     		 sub	$0x8,%rsp
+ 758:    48 c1 fd 03     		 sar	$0x3,%rbp
+ 75c:    e8 ef fd ff ff  		 callq  550 <_init>
+ 761:    48 85 ed        		 test   %rbp,%rbp
+ 764:    74 20           		 je 	786 <__libc_csu_init+0x56>
+ 766:    31 db           		 xor	%ebx,%ebx
+ 768:    0f 1f 84 00 00 00 00     nopl   0x0(%rax,%rax,1)
+ 76f:    00
+ 770:    4c 89 fa        		 mov	%r15,%rdx
+ 773:    4c 89 f6        		 mov	%r14,%rsi
+ 776:    44 89 ef        		 mov	%r13d,%edi
+ 779:    41 ff 14 dc     		 callq  *(%r12,%rbx,8)
+ 77d:    48 83 c3 01     		 add	$0x1,%rbx
+ 781:    48 39 dd        		 cmp	%rbx,%rbp
+ 784:    75 ea           		 jne	770 <__libc_csu_init+0x40>
+ 786:    48 83 c4 08     		 add	$0x8,%rsp
+ 78a:    5b              		 pop	%rbx
+ 78b:    5d              		 pop	%rbp
+ 78c:    41 5c           		 pop	%r12
+ 78e:    41 5d           		 pop	%r13
+ 790:    41 5e           		 pop	%r14
+ 792:    41 5f           		 pop	%r15
+ 794:    c3              		 retq   
+ 795:    90              		 nop
+ 796:    66 2e 0f 1f 84 00 00     nopw   %cs:0x0(%rax,%rax,1)
+ 79d:    00 00 00
+
+00000000000007a0 <__libc_csu_fini>:                         		; destructor of this program
+ 7a0:    f3 c3           		 repz retq
+
+Disassembly of section .fini:
+
+00000000000007a4 <_fini>:                                   		; called when libraries are unloaded
+ 7a4:    48 83 ec 08     		 sub	$0x8,%rsp
+ 7a8:    48 83 c4 08     		 add	$0x8,%rsp
+ 7ac:    c3              		 retq  
