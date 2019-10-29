@@ -2,7 +2,7 @@
 
 Multithreaded programming tasks for integer array analysis and Monte Carlo pi calculations.
 
-#### Task
+### Task
 
 **Part 1**
 
