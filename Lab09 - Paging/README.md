@@ -10,10 +10,13 @@ A program that passes a decimal virtual address and outputs its page number and 
 
 ### input.txt
 3               <- # of page frames
+
 1 2 3 4 1 3     <- Page reference string (a space separates requests)
 
 ### output.txt
 FIFO: 5         }
+
 LRU: 5          } # of page faults
+
 Optimal: 4      }
 
